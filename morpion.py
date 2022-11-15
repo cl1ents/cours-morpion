@@ -1,3 +1,9 @@
+# VARIABLES
+
+playerSymbols = ".XO"
+abc = "abc"
+ott = "123"
+
 # FUNCTIONS
 
 from os import system, name as osname
@@ -27,14 +33,16 @@ e.g:
 3 | X O -
 """
 def printGrid(grid):
-    print("    A B C")
-    print("    _ _ _")
+    output = ''
+    output += "    A B C\n    _ _ _\n"
     for i in range(len(grid)):
-        print("123"[i], end=" | ")
+        output += ott[i]+" | "
         row = grid[i]
         for e in row:
-            print(".XO"[e], end = " ")
-        print("")
+            output += playerSymbols[e]+" "
+        output += "\n"
+    
+    print(output)
 
 def testCoordinate(grid, x, y):
     return y >= 0 and x >= 0 and y < len(grid) and x < len(grid[y]) 
@@ -51,10 +59,10 @@ def setValue(grid, x, y, value):
 def toCoordinates(coord):
     coordLower = coord.lower()
     if len(coordLower) == 2: 
-        if coordLower[0] in "abc" and coordLower[1] in "123":
-            return ("abc".index(coordLower[0]), "123".index(coordLower[1]))
-        elif coordLower[1] in "abc" and coordLower[0] in "123":
-            return ("abc".index(coordLower[1]), "123".index(coordLower[0]))
+        if coordLower[0] in abc and coordLower[1] in ott:
+            return (abc.index(coordLower[0]), ott.index(coordLower[1]))
+        elif coordLower[1] in abc and coordLower[0] in ott:
+            return (abc.index(coordLower[1]), ott.index(coordLower[0]))
     
     return (-1, -1)
 
@@ -91,12 +99,19 @@ def isWinner(grid, player):
                 return True
     return False
 
+def isDraw(grid):
+    filled = 0
+    for row in grid:
+        for e in row:
+            filled += (e != 0)
+    return filled == 9
+
 def round(grid, player):
     coordinates = (-1, -1)
     while coordinates == (-1, -1):
         clear()
         printGrid(grid)
-        print("\nITS PLAYER "+str(player)+"'s TURN! ("+".XO"[player]+")")
+        print("\nITS PLAYER "+str(player)+"'s TURN! ("+playerSymbols[player]+")")
         playerInput = customInput("Enter coordinates (e.g: A2) > ")
         coordinates = toCoordinates(playerInput)
 
@@ -116,7 +131,7 @@ Le joueur 1 a le symbole X et le joueur 2 a le symbole O
 Pour jouer, le joueur indique les coordonnées de la case dans laquelle il veut jouer, par exemple "C2"
 
 """)
-input('(Appuyez sur entrer pour continuer.)')
+input("(Appuyez sur entrer pour continuer.)")
 
 grid = createGrid()
 turn = 2
@@ -130,5 +145,11 @@ while playing:
         clear()
         printGrid(grid)
         print("\nPLAYER "+str(turn)+" WINS!\n")
+        input('(Appuyez sur entrer pour continuer.)')
+        playing = False
+    elif isDraw(grid):
+        clear()
+        printGrid(grid)
+        print("\nDRAW!\n")
         input('(Appuyez sur entrer pour continuer.)')
         playing = False
