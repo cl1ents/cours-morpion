@@ -44,18 +44,31 @@ def printGrid(grid):
     
     print(output)
 
+"""
+Tests whether or not coordinates fit inside of a grid
+"""
 def testCoordinate(grid, x, y):
     return y >= 0 and x >= 0 and y < len(grid) and x < len(grid[y]) 
 
+"""
+Gets value at the X and Y coordinates inside of a grid
+"""
 def getValue(grid, x, y):
     return 0 if not testCoordinate(grid, x, y) else grid[y][x]
 
+
+"""
+Sets value at the X and Y coordinates inside of a grid
+"""
 def setValue(grid, x, y, value):
     if not testCoordinate(grid, x, y):
         return False
     grid[y][x] = value
     return True
 
+"""
+Converts text coordinates (A2) to numbers (0, 1)
+"""
 def toCoordinates(coord):
     coordLower = coord.lower()
     if len(coordLower) == 2: 
@@ -67,18 +80,8 @@ def toCoordinates(coord):
     return (-1, -1)
 
 """
-Custom input to intercept whatever the player types.
-(Handles exit)
+Checks whether or not player won inside of the grid
 """
-def customInput(txt):
-    while True:
-        enteredInput = input(txt)
-        if enteredInput.lower() == "exit":
-            if input("Are you sure? (yes/no) > ").lower() == "yes":
-                exit()
-        else:
-            return enteredInput
-
 def isWinner(grid, player):
     for i in range(3):
         col = 0
@@ -99,6 +102,9 @@ def isWinner(grid, player):
                 return True
     return False
 
+"""
+Checks whether or not the grid is considered a draw
+"""
 def isDraw(grid):
     filled = 0
     for row in grid:
@@ -106,6 +112,38 @@ def isDraw(grid):
             filled += (e != 0)
     return filled == 9
 
+def iaInput(grid, player):
+    # if case grid != 0
+        # computer can't play here
+    # elif case grid != player
+        # opponent played here
+    # gridT = [[1,2,3]
+    #         ,[2,C,4]
+    #         ,[3,4,5]]
+    # if IA = first : play 9
+
+
+    
+    
+    grid = grid # anti error
+
+"""
+Custom input to intercept whatever the player types.
+(Handles exit)
+"""
+def customInput(txt):
+    while True:
+        enteredInput = input(txt)
+        if enteredInput.lower() == "exit":
+            if input("Are you sure? (yes/no) > ").lower() == "yes":
+                exit()
+        else:
+            return enteredInput
+
+"""
+Round handler:
+Handles (HUMAN) player input
+"""
 def round(grid, player):
     coordinates = (-1, -1)
     while coordinates == (-1, -1):
@@ -113,6 +151,7 @@ def round(grid, player):
         printGrid(grid)
         print("\nITS PLAYER "+str(player)+"'s TURN! ("+playerSymbols[player]+")")
         playerInput = customInput("Enter coordinates (e.g: A2) > ")
+        # playerInput = iaInput(grid, player)
         coordinates = toCoordinates(playerInput)
 
         if getValue(grid, coordinates[0], coordinates[1]) != 0:
