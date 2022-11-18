@@ -1,5 +1,6 @@
 from morpionLogic import game
 from tkinter import * 
+from tkinter import messagebox
 from tkinter.ttk import *
 import os.path as path
 
@@ -39,7 +40,7 @@ class GamePage:
         self.gridContainer = Frame(self.frame)
         self.gridContainer.pack(side = BOTTOM)
 
-        self.info = Button(self.frame, image=infoImage)
+        self.info = Button(self.frame, image=infoImage, command=self.showInfo)
         self.info.pack(side = LEFT)
 
         self.exit = Button(self.frame, text="Quitter")
@@ -57,6 +58,14 @@ class GamePage:
                 b.bind("<Button-1>", self.onClickWrapper(y, i))
                 b.grid(row = i+1, column = y)
     
+    def showInfo(self):
+        messagebox.showinfo("Règles", """Le but du jeu est simple:
+
+Il suffit d'aligner, avant son adversaire, 3 symboles identiques horizontalement, verticalement ou en diagonale sur une grille de 3x3.
+Le joueur ayant aligné 3 symboles gagne la partie.
+Le joueur 1 a le symbole X et le joueur 2 a le symbole O
+Pour jouer, le joueur clique la case où il veut jouer.""")
+
     def play(self, x, y):
         if self.currentGame.getValue(x, y) != 0 or not self.playing:
             return

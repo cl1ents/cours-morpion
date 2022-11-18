@@ -135,6 +135,16 @@ Pour jouer, le joueur indique les coordonnées de la case dans laquelle il veut 
         # Afficher "\nDRAW!\n"
         # Appeler la fonction `input` avec comme argument "(Appuyez sur entrer pour continuer.)"
         # Mettre `playing` a False
+    
+    # Si `playing` est égal a False:
+        # Definir une chaine de caractere vide `playerResponse`
+        # Tant que `playerResponse` n'est pas égal a "non" et que `playerResponse` n'est pas égal a "oui":
+            # Appeler `clear`
+            # Mettre `playerResponse` en tant que la chaine de caractere renvoyée par `customInput` prenant pour argument "Voulez vous rejouer? (oui/non) > " en minuscule
 
+        # Si `playerResponse` est égal a "oui":
+            # Alors mettre `playing` a True
+            # Mettre `grid` en tant que la liste renvoyée par `createGrid`
+            # Mettre `turn` a 2
     
 # FIN

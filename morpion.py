@@ -112,21 +112,6 @@ def isDraw(grid):
             filled += (e != 0)
     return filled == 9
 
-def iaInput(grid, player):
-    # if case grid != 0
-        # computer can't play here
-    # elif case grid != player
-        # opponent played here
-    # gridT = [[1,2,3]
-    #         ,[2,C,4]
-    #         ,[3,4,5]]
-    # if IA = first : play 9
-
-
-    
-    
-    grid = grid # anti error
-
 """
 Custom input to intercept whatever the player types.
 (Handles exit)
@@ -192,3 +177,14 @@ while playing:
         print("\nÉGALITÉ!\n")
         input('(Appuyez sur entrer pour continuer.)')
         playing = False
+    
+    if not playing:
+        playerResponse = ''
+        while playerResponse != "oui" and playerResponse != "non":
+            clear()
+            playerResponse = input("Voulez vous rejouer? (oui/non) > ").lower()
+        
+        if playerResponse == "oui":
+            playing = True
+            grid = createGrid()
+            turn = 2
