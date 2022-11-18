@@ -54,7 +54,7 @@
     # Tant que True:
         # Definir `enteredInput` en tant que la valeur renvoyée par `input` avec l'argument `txt`
         # Si `enteredInput` en minuscule est égal a "exit", alors:
-            # Si la valeur renvoyée par `input` avec l'argument "Are you sure? (yes/no) > " en minuscule est égale a "yes":
+            # Si la valeur renvoyée par `input` avec l'argument "Est tu sûr? (oui/non) > > " en minuscule est égale a "oui":
                 # Appeler la fonction `exit`
         # Sinon,
             # Renvoyer `enteredInput`
@@ -91,8 +91,8 @@
     # Tant que coordinates est une liste qui contient -1 et -1
         # Alors appeler la fonction `clear`
         # Appeler la fonction `printGrid` avec comme argument `grid`
-        # Afficher la concatenation de "\nITS PLAYER ", `player` en tant que chaine de caractere, "'s TURN! (", l'élement d'index `player` de playerSymbols et ")"
-        # Definir une variable `playerInput` en tant que la chaine de caractere renvoyée par `customInput` prenant pour argument "Enter coordinates (e.g: A2) > "
+        # Afficher la concatenation de "\nC'est le tour du joueur ", `player` en tant que chaine de caractere, "! (", l'élement d'index `player` de playerSymbols et ")"
+        # Definir une variable `playerInput` en tant que la chaine de caractere renvoyée par `customInput` prenant pour argument "Entrer des coordonnées (e.g: A2) > "
         # Definir une variable `coordinates` en tant que la liste renvoyée par `toCoordinates` prenant pour argument `customInput`
 
         # Si la valeur renvoyée par `getValue` avec comme arguments `grid` et l'élement 0 puis 1 de `coordinates` est differente de 0,
@@ -126,13 +126,13 @@ Pour jouer, le joueur indique les coordonnées de la case dans laquelle il veut 
     # Si la valeur renvoyée par `isWinner` avec comme argument `grid` et `turn` est égale a True,
         # Alors appeler la fonction `clear`
         # Appeler la fonction `printGrid` avec comme argument `grid`
-        # Afficher la concatenation de "\nPLAYER ", `turn` en tant que chaine de caractere et " WINS!\n"
+        # Afficher la concatenation de "\nJOUEUR ", `turn` en tant que chaine de caractere et " A GAGNÉ!\n"
         # Appeler la fonction `input` avec comme argument "(Appuyez sur entrer pour continuer.)"
         # Mettre `playing` a False
     # Sinon si la valeur renvoyée par `isDraw` avec comme argument `grid` est égale a True,
         # Alors appeler la fonction `clear`
         # Appeler la fonction `printGrid` avec comme argument `grid`
-        # Afficher "\nDRAW!\n"
+        # Afficher "\nÉGALITÉ!\n"
         # Appeler la fonction `input` avec comme argument "(Appuyez sur entrer pour continuer.)"
         # Mettre `playing` a False
     

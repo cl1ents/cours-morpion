@@ -182,7 +182,7 @@ while playing:
         playerResponse = ''
         while playerResponse != "oui" and playerResponse != "non":
             clear()
-            playerResponse = input("Voulez vous rejouer? (oui/non) > ").lower()
+            playerResponse = customInput("Voulez vous rejouer? (oui/non) > ").lower()
         
         if playerResponse == "oui":
             playing = True
