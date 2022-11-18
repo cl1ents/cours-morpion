@@ -35,7 +35,7 @@ def impossibleBot(grid, player):
                 if grid[i][j] != 0:
                     played += 1
         if player == 1:
-            
+
         
             grid = grid
         else:
