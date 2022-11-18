@@ -1,4 +1,5 @@
 from morpionLogic import game
+from Ai import minmax
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
@@ -138,6 +139,10 @@ Pour jouer, le joueur clique la case où il veut jouer.""")
                 self.retry.pack_forget()
             else:
                 self.retry.pack()
+            
+            if self.ai and self.turn == 2:
+                score, move = minmax(self.currentGame.grid, 2)
+                self.play(move[0], move[1])
             
     def newGame(self):
         self.currentGame = game()
