@@ -1,22 +1,67 @@
 from morpionLogic import game
-from tkinter import * 
+import tkinter as tk
+from tkinter import ttk
 from tkinter import messagebox
-from tkinter.ttk import *
+import tkinter.font as font
 import os.path as path
 
-window = Tk()
+window = tk.Tk()
 window.title("Morpion")
-window.geometry("260x325")
-window.minsize(260, 325)
-window.maxsize(260, 325)
+width = 260 # Width 
+height = 325 # Height
 
-infoImage = PhotoImage(file=path.dirname(__file__)+"/img/info.png")
+screen_width = window.winfo_screenwidth()  # Width of the screen
+screen_height = window.winfo_screenheight() # Height of the screen
+ 
+# Calculate Starting X and Y coordinates for Window
+x = (screen_width/2) - (width/2)
+y = (screen_height/2) - (height/2)
+
+window.geometry('%dx%d+%d+%d' % (width, height, x, y))
+window.minsize(width, height)
+window.maxsize(width, height)
+
+infoImage = tk.PhotoImage(file=path.dirname(__file__)+"/img/info.png")
+
+titleFont = font.Font(size = 15, family="Segoe Ui", weight="bold")
+bigButtonFont = font.Font(size = 14, family="Segoe Ui")
+
+class MainMenu:
+    def __init__(self, gamePage):
+        self.frame = tk.Frame(window)
+        self.gamePage = gamePage
+        gamePage.mainMenu = self
+
+        text = ttk.Label(self.frame, 
+            text="\nBienvenue au Morpion!\n☆*: .｡. o(≧▽≦)o .｡.:*☆", 
+            anchor="center", 
+            font=titleFont, 
+            justify=tk.CENTER)
+
+        buttonPVP = tk.Button(self.frame, text="CONTRE UN JOUEUR", command=self.start, font=bigButtonFont)
+        buttonAi = tk.Button(self.frame, text="CONTRE UNE IA", command=self.aiStart, font=bigButtonFont)
+
+        text.pack(pady=20)
+        buttonPVP.pack(pady=20)
+        buttonAi.pack(pady=20)
+    
+    def start(self):
+        self.frame.pack_forget()
+        self.gamePage.ai = False
+        self.gamePage.newGame()
+        self.gamePage.frame.pack()
+
+    def aiStart(self):
+        self.frame.pack_forget()
+        self.gamePage.ai = True
+        self.gamePage.newGame()
+        self.gamePage.frame.pack()
 
 class GamePage:
     playerSymbols = [
-        PhotoImage(file=path.dirname(__file__)+"/img/_.png"), 
-        PhotoImage(file=path.dirname(__file__)+"/img/x.png"), 
-        PhotoImage(file=path.dirname(__file__)+"/img/o.png")
+        tk.PhotoImage(file=path.dirname(__file__)+"/img/_.png"), 
+        tk.PhotoImage(file=path.dirname(__file__)+"/img/x.png"), 
+        tk.PhotoImage(file=path.dirname(__file__)+"/img/o.png")
     ]
 
     def __init__(self):
@@ -24,31 +69,31 @@ class GamePage:
         self.currentGame = None
         self.playing = False
 
-        self.frame = Frame(window)
+        self.frame = tk.Frame(window)
 
-        retryFrame = Frame(self.frame)
-        retryFrame.pack(side = BOTTOM, pady=4)
+        retryFrame = tk.Frame(self.frame)
+        retryFrame.pack(side = tk.BOTTOM, pady=4)
 
-        self.retry = Button(retryFrame, text="REESSAYER?", command=self.newGame)
+        self.retry = ttk.Button(retryFrame, text="REESSAYER?", command=self.newGame)
 
-        self.text = Label(self.frame, text="\nBienvenue!", anchor="center")
-        self.text.pack(side = BOTTOM)
+        self.text = ttk.Label(self.frame, text="\nBienvenue!", anchor="center")
+        self.text.pack(side = tk.BOTTOM)
 
-        separator = Separator(self.frame, orient='horizontal')
-        separator.pack(fill='x', side = BOTTOM, pady=8)
+        separator = ttk.Separator(self.frame, orient='horizontal')
+        separator.pack(fill='x', side = tk.BOTTOM, pady=8)
 
-        self.gridContainer = Frame(self.frame)
-        self.gridContainer.pack(side = BOTTOM)
+        self.gridContainer = tk.Frame(self.frame)
+        self.gridContainer.pack(side = tk.BOTTOM)
 
-        self.info = Button(self.frame, image=infoImage, command=self.showInfo)
-        self.info.pack(side = LEFT)
+        self.info = ttk.Button(self.frame, image=infoImage, command=self.showInfo)
+        self.info.pack(side = tk.LEFT)
 
-        self.exit = Button(self.frame, text="Quitter")
-        self.exit.pack( side = RIGHT )
+        self.exit = ttk.Button(self.frame, text="Quitter", command=self.back)
+        self.exit.pack( side = tk.RIGHT )
 
         self.buttons = [
             [
-                Button(self.gridContainer, image=self.playerSymbols[0]) for x in range(3)
+                tk.Button(self.gridContainer, image=self.playerSymbols[0]) for x in range(3)
             ] for y in range(3)
         ]
 
@@ -58,6 +103,10 @@ class GamePage:
                 b.bind("<Button-1>", self.onClickWrapper(y, i))
                 b.grid(row = i+1, column = y)
     
+    def back(self):
+        self.frame.pack_forget()
+        self.mainMenu.frame.pack()
+
     def showInfo(self):
         messagebox.showinfo("Règles", """Le but du jeu est simple:
 
@@ -90,15 +139,12 @@ Pour jouer, le joueur clique la case où il veut jouer.""")
             else:
                 self.retry.pack()
             
-
     def newGame(self):
         self.currentGame = game()
         self.turn = 1
         self.update()
 
-gamePage = GamePage()
-gamePage.newGame()
-gamePage.frame.pack()
+MainMenu(GamePage()).frame.pack()
 
 # frame.place(in_=window, anchor="c", relx=.5, rely=.5)
 
