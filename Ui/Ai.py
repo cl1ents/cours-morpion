@@ -1,4 +1,6 @@
 import copy
+import random
+import time
 
 # VARIABLES
 
@@ -73,20 +75,27 @@ def coordinatesToStr(x, y):
     return abc[x]+ott[y]
 
 """
-Checks whether or not the grid is considered a draw
+gets filled cases
 """
-def isDraw(grid):
+def filled(grid):
     filled = 0
     for row in grid:
         for e in row:
             filled += (e != 0)
-    return filled == 9
+    return filled
+
+"""
+Checks whether or not the grid is considered a draw
+"""
+def isDraw(grid):
+    return filled(grid) == 9
 
 def minmax(grid, player):
     move = (-1, -1)
     opponent = 1 if player == 2 else 2
-
-    if isWinner(grid, player):
+    if filled(grid) == 0:
+        return (0, (random.randint(0, 2), random.randint(0, 2)))
+    elif isWinner(grid, player):
         return (1, move)
     elif isWinner(grid, opponent):
         return (-1, move)
