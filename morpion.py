@@ -135,7 +135,7 @@ def customInput(txt):
     while True:
         enteredInput = input(txt)
         if enteredInput.lower() == "exit":
-            if input("Are you sure? (yes/no) > ").lower() == "yes":
+            if input("Est tu sûr? (oui/non) > ").lower() == "oui":
                 exit()
         else:
             return enteredInput
@@ -149,8 +149,8 @@ def round(grid, player):
     while coordinates == (-1, -1):
         clear()
         printGrid(grid)
-        print("\nITS PLAYER "+str(player)+"'s TURN! ("+playerSymbols[player]+")")
-        playerInput = customInput("Enter coordinates (e.g: A2) > ")
+        print("\nC'est le tour du joueur "+str(player)+"! ("+playerSymbols[player]+")")
+        playerInput = customInput("Entrer des coordonnées (e.g: A2) > ")
         # playerInput = iaInput(grid, player)
         coordinates = toCoordinates(playerInput)
 
@@ -183,12 +183,12 @@ while playing:
     if isWinner(grid, turn):
         clear()
         printGrid(grid)
-        print("\nPLAYER "+str(turn)+" WINS!\n")
+        print("\nJOUEUR "+str(turn)+" A GAGNÉ!\n")
         input('(Appuyez sur entrer pour continuer.)')
         playing = False
     elif isDraw(grid):
         clear()
         printGrid(grid)
-        print("\nDRAW!\n")
+        print("\nÉGALITÉ!\n")
         input('(Appuyez sur entrer pour continuer.)')
         playing = False

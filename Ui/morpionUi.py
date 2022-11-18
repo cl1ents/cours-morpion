@@ -1,6 +1,7 @@
 from morpionLogic import game
 from tkinter import * 
 from tkinter.ttk import *
+import os.path as path
 
 window = Tk()
 window.title("Morpion")
@@ -8,13 +9,13 @@ window.geometry("260x325")
 window.minsize(260, 325)
 window.maxsize(260, 325)
 
-infoImage = PhotoImage(file="img/info.png")
+infoImage = PhotoImage(file=path.dirname(__file__)+"/img/info.png")
 
-class gamePage:
+class GamePage:
     playerSymbols = [
-        PhotoImage(file="img/_.png"), 
-        PhotoImage(file="img/x.png"), 
-        PhotoImage(file="img/o.png")
+        PhotoImage(file=path.dirname(__file__)+"/img/_.png"), 
+        PhotoImage(file=path.dirname(__file__)+"/img/x.png"), 
+        PhotoImage(file=path.dirname(__file__)+"/img/o.png")
     ]
 
     def __init__(self):
@@ -23,14 +24,13 @@ class gamePage:
         self.playing = False
 
         self.frame = Frame(window)
-        self.frame.pack()
 
         retryFrame = Frame(self.frame)
         retryFrame.pack(side = BOTTOM, pady=4)
 
-        self.retry = Button(retryFrame, text="RETRY!", command=self.newGame)
+        self.retry = Button(retryFrame, text="REESSAYER?", command=self.newGame)
 
-        self.text = Label(self.frame, text="\nWelcome!", anchor="center")
+        self.text = Label(self.frame, text="\nBienvenue!", anchor="center")
         self.text.pack(side = BOTTOM)
 
         separator = Separator(self.frame, orient='horizontal')
@@ -42,7 +42,7 @@ class gamePage:
         self.info = Button(self.frame, image=infoImage)
         self.info.pack(side = LEFT)
 
-        self.exit = Button(self.frame, text="Exit")
+        self.exit = Button(self.frame, text="Quitter")
         self.exit.pack( side = RIGHT )
 
         self.buttons = [
@@ -74,7 +74,7 @@ class gamePage:
                 for y in range(3):
                     self.buttons[x][y].config(image=self.playerSymbols[self.currentGame.getValue(x, y)])
             
-            self.text.configure(text= "Player 1 wins!" if self.currentGame.isWinner(1) else "Player 2 wins!" if self.currentGame.isWinner(2) else "DRAW!" if self.currentGame.isDraw() else f"Player {self.turn}'s turn." )
+            self.text.configure(text= "Joueur 1 a gagné!" if self.currentGame.isWinner(1) else "Joueur 2 a gagné!" if self.currentGame.isWinner(2) else "ÉGALITÉ!" if self.currentGame.isDraw() else f"C'est le tour du joueur {self.turn}." )
             self.playing = not (self.currentGame.isWinner(1) or self.currentGame.isWinner(2) or self.currentGame.isDraw())
             if self.playing:
                 self.retry.pack_forget()
@@ -87,7 +87,9 @@ class gamePage:
         self.turn = 1
         self.update()
 
-gamePage().newGame()
+gamePage = GamePage()
+gamePage.newGame()
+gamePage.frame.pack()
 
 # frame.place(in_=window, anchor="c", relx=.5, rely=.5)
 
