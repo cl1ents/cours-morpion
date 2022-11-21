@@ -6,6 +6,9 @@ from tkinter import messagebox
 import tkinter.font as font
 import os.path as path
 
+import threading
+import time
+
 window = tk.Tk()
 window.title("Morpion")
 width = 260 # Width 
@@ -66,9 +69,11 @@ class GamePage:
     ]
 
     def __init__(self):
-        self.turn = 1
+        self.turn = 2
+        self.lastTurn = 2
         self.currentGame = None
         self.playing = False
+        self.canPlay = False
 
         self.frame = tk.Frame(window)
 
@@ -117,12 +122,18 @@ Le joueur 1 a le symbole X et le joueur 2 a le symbole O
 Pour jouer, le joueur clique la case où il veut jouer.""")
 
     def play(self, x, y):
-        if self.currentGame.getValue(x, y) != 0 or not self.playing:
+        if self.currentGame.getValue(x, y) != 0 or not self.playing or not self.canPlay:
             return
         self.currentGame.setValue(x, y, self.turn)
 
         self.turn = (self.turn%2)+1
         self.update()
+    
+    def botPlay(self):
+        time.sleep(.05)
+        score, move = minmax(self.currentGame.grid, 2)
+        self.canPlay = True
+        self.play(move[0], move[1])
 
     def onClickWrapper(self, x, y):
         return lambda Button: self.play(x, y)
@@ -134,20 +145,28 @@ Pour jouer, le joueur clique la case où il veut jouer.""")
                     self.buttons[x][y].config(image=self.playerSymbols[self.currentGame.getValue(x, y)])
             
             self.text.configure(text= "Joueur 1 a gagné!" if self.currentGame.isWinner(1) else "Joueur 2 a gagné!" if self.currentGame.isWinner(2) else "ÉGALITÉ!" if self.currentGame.isDraw() else f"C'est le tour du joueur {self.turn}." )
+
             self.playing = not (self.currentGame.isWinner(1) or self.currentGame.isWinner(2) or self.currentGame.isDraw())
             if self.playing:
                 self.retry.pack_forget()
             else:
                 self.retry.pack()
             
-            if self.ai and self.turn == 2:
-                score, move = minmax(self.currentGame.grid, 2)
-                self.play(move[0], move[1])
+            if self.ai and self.turn == 2 and self.playing:
+                self.canPlay = False
+                self.text.configure(text="L'ordinateur reflechis...")
+                thread = threading.Thread(target=self.botPlay)
+                thread.daemon = True
+                thread.start()
+            else:
+                self.canPlay = True
             
     def newGame(self):
         self.currentGame = game()
-        self.turn = 1
+        self.turn = (not (self.lastTurn-1)) + 1
+        self.lastTurn = self.turn
         self.update()
+
 
 MainMenu(GamePage()).frame.pack()
 
