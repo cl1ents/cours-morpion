@@ -162,14 +162,16 @@ def isDraw(grid):
 """
 First turns of IA
 """
-def firstTurns(grid, turn):
-    opponent = 1 if turn == 2 else 2
-    if filled(grid) == 1 and grid[1][1] == 0:
+def firstTurns(grid, player):
+    opponent = 1 if player == 2 else 2
+    roundNumber = filled(grid)
+
+    if roundNumber == 1 and grid[1][1] == 0:
         return center
-    elif filled(grid) == 0 or filled(grid) == 1:
+    elif roundNumber == 0 or roundNumber == 1:
         return choice(corners)
     
-    if filled(grid) == 3 and (getValue(grid, 0, 0) == getValue(grid, 2, 2) == opponent or getValue(grid, 2, 0) == getValue(grid, 0, 2) == opponent) and grid[1][1] == 2:
+    if roundNumber == 3 and (getValue(grid, 0, 0) == getValue(grid, 2, 2) == opponent or getValue(grid, 2, 0) == getValue(grid, 0, 2) == opponent) and grid[1][1] == 2:
         return choice(sides)
     return (-1, -1)
 
@@ -231,24 +233,24 @@ def aiInput(grid, turn):
     if result != (-1, -1):
         return convertToTextCoords(result[0], result[1])
     
-    # If the Ai can fork
-    result = playerCanFork(grid, turn)
-    if result != (-1, -1):
-        return convertToTextCoords(result[0], result[1])
-
     # If the Player can fork
     result = playerCanFork(grid, opponent)
     if result != (-1, -1):
         return convertToTextCoords(result[0], result[1])
+
+    # If the Ai can fork
+    result = playerCanFork(grid, turn)
+    if result != (-1, -1):
+        return convertToTextCoords(result[0], result[1])
     
-    return (randint(0,2), randint(0,2))
+    return convertToTextCoords(randint(0,2), randint(0,2))
 
 
 """
 Custom input to intercept whatever the player types.
 (Handles exit)
 """
-def customInput(txt, autoPlay, grid, player):
+def customInput(txt, autoPlay = False, grid = [], player = 0):
     if autoPlay:
         return aiInput(grid, player)
     else:
@@ -262,7 +264,7 @@ def customInput(txt, autoPlay, grid, player):
 
 """
 Round handler:
-Handles (HUMAN) player input
+Handles (HUMAN READABLE) player input
 """
 def round(grid, player, ai):
     coordinates = (-1, -1)
@@ -296,12 +298,16 @@ turn = 2
 playing = True
 ai = 0 # Ai's turn, if not 1 or 2, then Ai doesn't play
 
-aiStr = ''
-while not checkInt(aiStr):
-    clear()
-    print("Est-ce que vous voulez jouer contre l'ordinateur?")
-    print("Si oui, choisissez")
-    aiStr = 
+clear()
+print("""
+Est-ce que vous voulez jouer contre l'ordinateur?
+Si oui, choisissez 1 si vous voulez que l'ordinateur commence, 2 si vous voulez commencer
+Sinon, appuyez simplement sur entrer :]
+""")
+aiStr = input('> ')
+
+if checkInt(aiStr):
+    ai = int(aiStr)
 
 
 while playing:
@@ -331,3 +337,13 @@ while playing:
             playing = True
             grid = createGrid()
             turn = 2
+
+            aiStr = ''
+            print("""Est-ce que vous voulez jouer contre l'ordinateur?
+Si oui, choisissez 1 si vous voulez que l'ordinateur commence, 2 si vous voulez commencer
+Sinon, appuyez simplement sur entrer :]
+""")
+            aiStr = input('> ')
+
+            if checkInt(aiStr):
+                ai = int(aiStr)

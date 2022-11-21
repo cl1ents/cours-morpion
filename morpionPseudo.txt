@@ -54,15 +54,6 @@
             # Alors renvoyer une liste qui contient l'index du deuxieme caractere de `coord` dans abc, et l'index du premier caractere de `coord` dans ott
     # Renvoyer une liste qui contient -1 et -1
 
-# Definir une fonction `customInput` qui prend pour argument une chaine de caractere `txt`:
-    # Tant que True:
-        # Definir `enteredInput` en tant que la valeur renvoyée par `input` avec l'argument `txt`
-        # Si `enteredInput` en minuscule est égal a "exit", alors:
-            # Si la valeur renvoyée par `input` avec l'argument "Est tu sûr? (oui/non) > > " en minuscule est égale a "oui":
-                # Appeler la fonction `exit`
-        # Sinon,
-            # Renvoyer `enteredInput`
-
 # Definir une fonction `isWinner` qui prend pour argument une liste `grid` et un nombre entier `player`:
     # Pour `i` prenant toutes les valeurs entre 0 et 2:
         # Definir une variable `col` qui a pour valeur 0
@@ -94,13 +85,42 @@
     # Definir une variable `filledBoxes` en tant que la valeur renvoyée par `filled` avec l'argument `grid`
     # Renvoyer l'assertion (`filledBoxes` === 9)
 
+-- IA --
+
+# Definir une function `firstTurns` qui prend pour argument une liste `grid` et un entier `player`:
+    # Initaliser `opponent` a 2
+    # Si `player` est égal a 2:
+        # Mettre `opponent` a 1
+    
+    # Initialiser `roundNumber` au nombre renvoyé par `filled` avec comme argument `grid`
+
+# Definir une function `playerCanWin` qui prend pour argument une liste `grid` et un entier `player`:
+
+# Definir une function `playerCanFork` qui prend pour argument une liste `grid` et un entier `player`:
+
+# Definir une function `aiInput` qui prend pour argument une liste `grid` et un entier `player`:
+
+-- FIN IA --
+
+# Definir une fonction `customInput` qui prend pour argument une chaine de caractere `txt`, et d'autres arguments optionnels tel un boolean `autoPlay`, une liste `grid` et un entier `player`:
+    # Si autoPlay est égal a True,
+        # Alors renvoyer la chaine de caractere renvoyée par `aiInput` prenant pour argument `grid` et `player`
+    # Sinon,
+        # Tant que True:
+            # Definir `enteredInput` en tant que la valeur renvoyée par `input` avec l'argument `txt`
+            # Si `enteredInput` en minuscule est égal a "exit", alors:
+                # Si la valeur renvoyée par `input` avec l'argument "Est tu sûr? (oui/non) > > " en minuscule est égale a "oui":
+                    # Appeler la fonction `exit`
+            # Sinon,
+                # Renvoyer `enteredInput`
+
 # Definir une fonction `round` qui prend en argument une liste `grid`, un entier `player` et un nombre entier `ai`
     # Initaliser la liste `coordinates` qui contient -1 et -1
     # Tant que coordinates est une liste qui contient -1 et -1
         # Alors appeler la fonction `clear`
         # Appeler la fonction `printGrid` avec comme argument `grid`
         # Afficher la concatenation de "\nC'est le tour du joueur ", `player` en tant que chaine de caractere, "! (", l'élement d'index `player` de playerSymbols et ")"
-        # Definir une variable `playerInput` en tant que la chaine de caractere renvoyée par `customInput` prenant pour argument "Entrer des coordonnées (e.g: A2) > "
+        # Definir une variable `playerInput` en tant que la chaine de caractere renvoyée par `customInput` prenant pour arguments "Entrer des coordonnées (e.g: A2) > ", l'assertion (`ai` === `player`), `grid` et `player`
         # Definir une variable `coordinates` en tant que la liste renvoyée par `toCoordinates` prenant pour argument `customInput`
 
         # Si la valeur renvoyée par `getValue` avec comme arguments `grid` et l'élement 0 puis 1 de `coordinates` est differente de 0,
@@ -128,7 +148,19 @@ Pour jouer, le joueur indique les coordonnées de la case dans laquelle il veut 
 # Initialiser la variable `playing` a True
 # Initialiser la variable `ai` a 0
 
-# Tant que `playing == True`
+# Appeler la fonction `clear`
+# Afficher le message:
+"""
+Est-ce que vous voulez jouer contre l'ordinateur?
+Si oui, choisissez 1 si vous voulez que l'ordinateur commence, 2 si vous voulez commencer
+Sinon, appuyez simplement sur entrer :]
+"""
+# Initialiser la variable `aiStr` en tant que la chaine de caractere renvoyée par `input` prenant pour argument "> "
+
+# Si `aiStr` est un nombre entier:
+    # Alors mettre `ai` en tant que `aiStr` converti en nombre entier
+
+# Tant que `playing` est égal a True
     # Redefinir turn en tant que (`turn` modulo 2) + 1
     # Appeler la fonction `round` avec comme argument `grid`, `turn` et `ai`
     
@@ -155,5 +187,16 @@ Pour jouer, le joueur indique les coordonnées de la case dans laquelle il veut 
             # Alors mettre `playing` a True
             # Mettre `grid` en tant que la liste renvoyée par `createGrid`
             # Mettre `turn` a 2
-    
+
+            # Afficher le message:
+            """
+            Est-ce que vous voulez jouer contre l'ordinateur?
+            Si oui, choisissez 1 si vous voulez que l'ordinateur commence, 2 si vous voulez commencer
+            Sinon, appuyez simplement sur entrer :]
+            """
+            # Initialiser la variable `aiStr` en tant que la chaine de caractere renvoyée par `input` prenant pour argument "> "
+
+            # Si `aiStr` est un nombre entier:
+                # Alors mettre `ai` en tant que `aiStr` converti en nombre entier
+
 # FIN
