@@ -2,6 +2,10 @@
 
 # On admet une fonction `clear` qui efface tout le texte affiché
 # On admet une fonction `lower` qui met une chaine de caractere en minuscule
+# On admet une fonction `deepcopy` qui crée une copie d'une liste
+# On admet une fonction `choice` qui choisi un element aléatoire d'une liste
+# On admet une fonction `randint` qui choisi un nombre entier entre `a` et `b`
+# On admet une fonction `checkInt` qui permet de verifier si une chaine de caractere peut être un nombre entier
 
 # On admet une fonction `input` avec un argument `Text`:
     # Afficher la valeur de `Text`
@@ -79,14 +83,18 @@
                 # Alors renvoyer True
     # Renvoyer False
 
-# Definir une fonction `isDraw` qui prend en argument une liste `grid`:
+# Definir une fonction `filled` qui prend en argument une liste `grid`:
     # Initaliser la variable `filled` a 0
     # Pour `row` prenant toutes les valeurs dans `grid`:
         # Pour `element` prenant toutes les valeurs dans `row`:
             # Si `element` est different de 0, incrementer `filled` de 1
-    # Renvoyer la valeur de l'assertion (`filled` === 9)
+    # Renvoyer `filled`
 
-# Definir une fonction `round` qui prend en argument une liste `grid` et un entier `player`
+# Definir une fonction `isDraw` qui prend en argument une liste `grid`:
+    # Definir une variable `filledBoxes` en tant que la valeur renvoyée par `filled` avec l'argument `grid`
+    # Renvoyer l'assertion (`filledBoxes` === 9)
+
+# Definir une fonction `round` qui prend en argument une liste `grid`, un entier `player` et un nombre entier `ai`
     # Initaliser la liste `coordinates` qui contient -1 et -1
     # Tant que coordinates est une liste qui contient -1 et -1
         # Alors appeler la fonction `clear`
@@ -118,10 +126,11 @@ Pour jouer, le joueur indique les coordonnées de la case dans laquelle il veut 
 # Initialiser la variable `grid` en tant que la liste renvoyée par `createGrid`
 # Initialiser la variable `turn` a 2
 # Initialiser la variable `playing` a True
+# Initialiser la variable `ai` a 0
 
 # Tant que `playing == True`
     # Redefinir turn en tant que (`turn` modulo 2) + 1
-    # Appeler la fonction `round` avec comme argument `grid` et `turn`
+    # Appeler la fonction `round` avec comme argument `grid`, `turn` et `ai`
     
     # Si la valeur renvoyée par `isWinner` avec comme argument `grid` et `turn` est égale a True,
         # Alors appeler la fonction `clear`

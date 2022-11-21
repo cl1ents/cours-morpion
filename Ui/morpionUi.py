@@ -1,5 +1,5 @@
 from morpionLogic import game
-from Ai import minmax
+from Ai import ai
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
@@ -131,7 +131,7 @@ Pour jouer, le joueur clique la case où il veut jouer.""")
     
     def botPlay(self):
         time.sleep(.05)
-        score, move = minmax(self.currentGame.grid, 2)
+        move = ai(self.currentGame.grid, 2)
         self.canPlay = True
         self.play(move[0], move[1])
 

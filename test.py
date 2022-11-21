@@ -243,6 +243,15 @@ def aiInput(grid, turn):
     
     return (randint(0,2), randint(0,2))
 
+def randomInput(grid):
+    freeCase = []
+    for i in range(3):
+        for j in range(3):
+            if grid[i][j] == 0:
+                freeCase.append((j, i))
+
+    chosen = choice(freeCase)
+    return convertToTextCoords(chosen[0], chosen[1])
 
 """
 Custom input to intercept whatever the player types.
@@ -252,13 +261,7 @@ def customInput(txt, autoPlay, grid, player):
     if autoPlay:
         return aiInput(grid, player)
     else:
-        while True:
-            enteredInput = input(txt)
-            if enteredInput.lower() == "exit":
-                if input("Est tu sûr? (oui/non) > ").lower() == "oui":
-                    exit()
-            else:
-                return enteredInput
+        return randomInput(grid)
 
 """
 Round handler:
@@ -294,15 +297,7 @@ input("(Appuyez sur entrer pour continuer.)")
 grid = createGrid()
 turn = 2
 playing = True
-ai = 0 # Ai's turn, if not 1 or 2, then Ai doesn't play
-
-aiStr = ''
-while not checkInt(aiStr):
-    clear()
-    print("Est-ce que vous voulez jouer contre l'ordinateur?")
-    print("Si oui, choisissez")
-    aiStr = 
-
+ai = 2 # Ai's turn, if not 1 or 2, then Ai doesn't play
 
 while playing:
     turn = (turn%2)+1
@@ -331,3 +326,6 @@ while playing:
             playing = True
             grid = createGrid()
             turn = 2
+
+
+                
