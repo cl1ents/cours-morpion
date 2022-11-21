@@ -142,14 +142,14 @@ def minmax(grid, player):
 """
 First turns of IA
 """
-def firstTurns(grid, turn):
-    opponent = 1 if turn == 2 else 2
+def firstTurns(grid, player):
+    opponent = 1 if player == 2 else 2
     if filled(grid) == 1 and grid[1][1] == 0:
         return center
     elif filled(grid) == 0 or filled(grid) == 1:
         return random.choice(corners)
     
-    if filled(grid) == 3 and (getValue(grid, 0, 0) == getValue(grid, 2, 2) == opponent or getValue(grid, 2, 0) == getValue(grid, 0, 2) == opponent) and grid[1][1] == 2:
+    if filled(grid) == 3 and (getValue(grid, 0, 0) == getValue(grid, 2, 2) == opponent or getValue(grid, 2, 0) == getValue(grid, 0, 2) == opponent):
         return random.choice(sides)
     return (-1, -1)
 
@@ -227,4 +227,11 @@ def ai(grid, turn):
         return (result[0], result[1])
     
     print('random')
-    return (random.randint(0,2), random.randint(0,2))
+
+    freeSpace = []
+    for x in range(3):
+        for y in range(3):
+            if getValue(grid, x, y) == 0:
+                freeSpace.append((x, y))
+
+    return random.choice(freeSpace)

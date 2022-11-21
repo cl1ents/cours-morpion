@@ -94,6 +94,23 @@
     
     # Initialiser `roundNumber` au nombre renvoyé par `filled` avec comme argument `grid`
 
+    # Si `roundNumber` est égal a 1 et que le retour de `getValue` avec comme arguments `grid`, 1 et 1 est égal a 0:
+        # Alors renvoyer `center`
+    # Sinon si `roundNumber` est égal a 0 ou `roundNumber` est égal a 1:
+        # Renvoyer le retour de `choice` avec comme argument `corners`
+    # Sinon si `roundNumber` est égal a 3 et que soit
+      # le retour de `getValue` avec comme arguments `grid`, 0 et 0
+      # est égal au retour de `getValue` avec comme arguments `grid`, 2 et 2
+      # est égal a `opponent`
+     # ou que
+      # le retour de `getValue` avec comme arguments `grid`, 2 et 0
+      # est égal au retour de `getValue` avec comme arguments `grid`, 0 et 2
+      # est égal a `opponent`
+    # Alors,
+        # Renvoyer le retour de `choice` avec comme argument `sides`
+    
+    # Renvoyer une liste qui contient -1 et -1
+
 # Definir une function `playerCanWin` qui prend pour argument une liste `grid` et un entier `player`:
 
 # Definir une function `playerCanFork` qui prend pour argument une liste `grid` et un entier `player`:

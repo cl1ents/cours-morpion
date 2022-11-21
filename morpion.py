@@ -90,7 +90,6 @@ Gets value at the X and Y coordinates inside of a grid
 def getValue(grid, x, y):
     return 0 if not testCoordinate(grid, x, y) else grid[y][x]
 
-
 """
 Sets value at the X and Y coordinates inside of a grid
 """
@@ -166,12 +165,11 @@ def firstTurns(grid, player):
     opponent = 1 if player == 2 else 2
     roundNumber = filled(grid)
 
-    if roundNumber == 1 and grid[1][1] == 0:
+    if roundNumber == 1 and getValue(grid, 1, 1) == 0:
         return center
     elif roundNumber == 0 or roundNumber == 1:
         return choice(corners)
-    
-    if roundNumber == 3 and (getValue(grid, 0, 0) == getValue(grid, 2, 2) == opponent or getValue(grid, 2, 0) == getValue(grid, 0, 2) == opponent) and grid[1][1] == 2:
+    elif roundNumber == 3 and (getValue(grid, 0, 0) == getValue(grid, 2, 2) == opponent or getValue(grid, 2, 0) == getValue(grid, 0, 2) == opponent):
         return choice(sides)
     return (-1, -1)
 
@@ -243,7 +241,13 @@ def aiInput(grid, turn):
     if result != (-1, -1):
         return convertToTextCoords(result[0], result[1])
     
-    return convertToTextCoords(randint(0,2), randint(0,2))
+    freeSpace = []
+    for x in range(3):
+        for y in range(3):
+            if getValue(grid, x, y) == 0:
+                freeSpace.append(convertToTextCoords(x, y))
+
+    return choice(freeSpace)
 
 
 """
