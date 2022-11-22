@@ -11,13 +11,12 @@ import time
 
 window = tk.Tk()
 window.title("Morpion")
-width = 260 # Width 
-height = 325 # Height
+width = 260
+height = 325
 
 screen_width = window.winfo_screenwidth()  # Width of the screen
 screen_height = window.winfo_screenheight() # Height of the screen
- 
-# Calculate Starting X and Y coordinates for Window
+
 x = (screen_width/2) - (width/2)
 y = (screen_height/2) - (height/2)
 
@@ -169,7 +168,5 @@ Pour jouer, le joueur clique la case où il veut jouer.""")
 
 
 MainMenu(GamePage()).frame.pack()
-
-# frame.place(in_=window, anchor="c", relx=.5, rely=.5)
 
 window.mainloop()
