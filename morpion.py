@@ -27,7 +27,6 @@ center = (1,1)
 
 # FUNCTIONS
 
-from copy import deepcopy
 from os import system, name as osname
 from random import choice, randint
 
@@ -178,14 +177,14 @@ def firstTurns(grid, player):
 Checks whether or not the player can win
 """
 def playerCanWin(grid, player):
-    for i in range(3):
-        for j in range(3):
-            if grid[i][j] == 0:
-                grid[i][j] = player
+    for x in range(3):
+        for y in range(3):
+            if getValue(grid, x, y) == 0:
+                setValue(grid, x, y, player)
                 if isWinner(grid, player):
-                    grid[i][j] = 0
-                    return (j, i)
-                grid[i][j] = 0
+                    setValue(grid, x, y, 0)
+                    return (x, y)
+                setValue(grid, x, y, 0)
     return (-1, -1)
 
 """
@@ -193,21 +192,22 @@ Checks whether or not the player can fork (lol)
 """
 def playerCanFork(grid, player):
     winCounter = 0
-    tempGrid = deepcopy(grid)
-    for i in range(3):
-        for j in range(3):
-            if tempGrid[i][j] == 0:
-                tempGrid[i][j] = player
-                for k in range(3):
-                    for l in range(3):
-                        if tempGrid[k][l] == 0:
-                            tempGrid[k][l] = player
-                            if isWinner(tempGrid, player):
+    for x1 in range(3):
+        for y1 in range(3):
+            if getValue(grid, x1, y1) == 0:
+                setValue(grid, x1, y1, player)
+                for x2 in range(3):
+                    for y2 in range(3):
+                        if getValue(grid, x2, y2) == 0:
+                            setValue(grid, x2, y2, player)
+                            if isWinner(grid, player):
                                 winCounter += 1
                             if winCounter >= 2:
-                                return (j, i)
-                            tempGrid[k][l] = 0
-                tempGrid[i][j] = 0
+                                setValue(grid, x2, y2, 0)
+                                setValue(grid, x1, y1, 0)
+                                return (x1, y1)
+                            setValue(grid, x2, y2, 0)
+                setValue(grid, x1, y1, 0)
     return (-1, -1)
 
 """

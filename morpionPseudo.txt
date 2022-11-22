@@ -14,6 +14,20 @@
 # Definir `playerSymbols` comme une liste avec les caracteres '.', 'X' et 'O'
 # Definir `abc` comme une liste avec les caracteres 'a', 'b' et 'c'
 # Definir `ott` comme une liste avec les caracteres '1', '2' et '3'
+
+# Definir une liste `corners` avec:
+    # Une liste avec comme elements 0 et 0,
+    # Une liste avec comme elements 0 et 2,
+    # Une liste avec comme elements 2 et 0,
+    # Une liste avec comme elements 2 et 2
+
+# Definir une liste `corners` avec:
+    # Une liste avec comme elements 0 et 1,
+    # Une liste avec comme elements 1 et 0,
+    # Une liste avec comme elements 1 et 2,
+    # Une liste avec comme elements 2 et 1
+
+# Definir une liste `corners` avec comme elements 1 et 1
     
 # Definir une fonction `createGrid`:
     # Renvoyer une liste de trois listes, qui elles sont remplies par trois 0.
@@ -53,6 +67,9 @@
         # Sinon si le deuxieme caractere de `coord` est dans `abc` et si le premier caractere de `coord` est dans `ott`:
             # Alors renvoyer une liste qui contient l'index du deuxieme caractere de `coord` dans abc, et l'index du premier caractere de `coord` dans ott
     # Renvoyer une liste qui contient -1 et -1
+
+# Definir une fonction `convertToTextCoords` qui prend pour arguments deux entiers `x` et `y`:
+    # Renvoyer la concatenation de l'élement `x` de la liste `abc` et l'élement `y` de la liste `ott`
 
 # Definir une fonction `isWinner` qui prend pour argument une liste `grid` et un nombre entier `player`:
     # Pour `i` prenant toutes les valeurs entre 0 et 2:
@@ -112,10 +129,71 @@
     # Renvoyer une liste qui contient -1 et -1
 
 # Definir une function `playerCanWin` qui prend pour argument une liste `grid` et un entier `player`:
+    # Pour `x` prenant toutes les valeurs entre 0 et 2
+        # Pour `y` prenant toutes les valeurs entre 0 et 2
+            # Si le retour de `getValue` avec comme arguments `grid`, `x` et `y` est égal 0,
+                # Appeler la fonction `setValue` avec comme arguments `grid`, `x`, `y` et `player`
+                # Si le retour de `isWinner` avec comme argument `grid` et `player` est égal a True:
+                    # Appeler la fonction `setValue` avec comme arguments `grid`, `x`, `y` et 0
+                    # Renvoyer une liste avec comme elements `x` et `y`
+                # Appeler la fonction `setValue` avec comme arguments `grid`, `x`, `y` et 0
+    # Renvoyer une liste avec comme elements -1 et -1
+
 
 # Definir une function `playerCanFork` qui prend pour argument une liste `grid` et un entier `player`:
+    # Initaliser `winCounter` a 0
+    # Pour `x1` prenant toutes les valeurs entre 0 et 2
+        # Pour `y1` prenant toutes les valeurs entre 0 et 2
+            # Si le retour de `getValue` avec comme arguments `grid`, `x1` et `y1` est égal 0,
+                # Appeler la fonction `setValue` avec comme arguments `grid`, `x1`, `y1` et `player`
+                # Pour `x2` prenant toutes les valeurs entre 0 et 2
+                    # Pour `y2` prenant toutes les valeurs entre 0 et 2
+                        # Si le retour de `getValue` avec comme arguments `grid`, `x2` et `y2` est égal 0,
+                            # Appeler la fonction `setValue` avec comme arguments `grid`, `x2`, `y2` et `player`
+                            # Si le retour de `isWinner` avec comme argument `grid` et `player` est égal a True,
+                                # Alors incrementer `winCounter` de 1
+                            # If `winCounter` est plus grand ou égal a 2
+                                # Appeler la fonction `setValue` avec comme arguments `grid`, `x1`, `y1` et 0
+                                # Appeler la fonction `setValue` avec comme arguments `grid`, `x2`, `y2` et 0
+                                # Renvoyer une liste avec comme elements `x1` et `y1`
+                            # Appeler la fonction `setValue` avec comme arguments `grid`, `x2`, `y2` et 0
+                # Appeler la fonction `setValue` avec comme arguments `grid`, `x1`, `y1` et 0
+    # Renvoyer une liste avec comme elements -1 et -1
 
 # Definir une function `aiInput` qui prend pour argument une liste `grid` et un entier `player`:
+    # Initaliser `opponent` a 2
+    # Si `player` est égal a 2:
+        # Mettre `opponent` a 1
+
+    # Initialiser `result` en liste avec comme elements -1 et -1
+
+    # Mettre `result` en tant que la valeur renvoyée par `firstTurns` prenant pour argument `grid` et `turn`
+    # Si result n'est pas égal a une liste avec comme elements -1 et -1,
+        # Alors renvoyer la chaine de caractere renvoyée par la fonction `convertToTextCoords` prenant pour argument l'élément 1 et l'élement 2 de `result`
+    
+    # Mettre `result` en tant que la valeur renvoyée par `playerCanWin` prenant pour argument `grid` et `turn`
+    # Si result n'est pas égal a une liste avec comme elements -1 et -1,
+        # Alors renvoyer la chaine de caractere renvoyée par la fonction `convertToTextCoords` prenant pour argument l'élément 1 et l'élement 2 de `result`
+    
+    # Mettre `result` en tant que la valeur renvoyée par `playerCanWin` prenant pour argument `grid` et `opponent`
+    # Si result n'est pas égal a une liste avec comme elements -1 et -1,
+        # Alors renvoyer la chaine de caractere renvoyée par la fonction `convertToTextCoords` prenant pour argument l'élément 1 et l'élement 2 de `result`
+    
+    # Mettre `result` en tant que la valeur renvoyée par `playerCanFork` prenant pour argument `grid` et `opponent`
+    # Si result n'est pas égal a une liste avec comme elements -1 et -1,
+        # Alors renvoyer la chaine de caractere renvoyée par la fonction `convertToTextCoords` prenant pour argument l'élément 1 et l'élement 2 de `result`
+    
+    # Mettre `result` en tant que la valeur renvoyée par `playerCanFork` prenant pour argument `grid` et `turn`
+    # Si result n'est pas égal a une liste avec comme elements -1 et -1,
+        # Alors renvoyer la chaine de caractere renvoyée par la fonction `convertToTextCoords` prenant pour argument l'élément 1 et l'élement 2 de `result`
+    
+    # Initialiser une liste vite `freeSpace`
+    # Pour `x` prenant toutes les valeurs entre 0 et 2
+        # Pour `y` prenant toutes les valeurs entre 0 et 2
+            # Si le retour de `getValue` avec comme arguments `grid`, `x` et `y` est égal 0,
+                # Ajouter la chaine de caractere renvoyée par la fonction `convertToTextCoords` prenant pour arguments `x` et `y` dans la liste `freeSpace`
+    
+    # Renvoyer la valeur renvoyée par la fonction `choice` prenant pour argument `freeSpace`
 
 -- FIN IA --
 
