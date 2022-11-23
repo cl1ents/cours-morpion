@@ -29,6 +29,7 @@ center = (1,1)
 
 from os import system, name as osname
 from random import choice, randint
+from time import sleep
 
 """
 Checks if string can be converted to an int
@@ -219,28 +220,35 @@ def aiInput(grid, turn):
     # Process first turns
     result = firstTurns(grid, turn)
     if result != (-1, -1):
+        print("[ORDINATEUR] firstTurn")
         return convertToTextCoords(result[0], result[1])
 
     # If the Ai can win
     result = playerCanWin(grid, turn)
     if result != (-1, -1):
+        print("[ORDINATEUR] aiCanWin")
         return convertToTextCoords(result[0], result[1])
 
     # If the Player can win
     result = playerCanWin(grid, opponent)
     if result != (-1, -1):
+        print("[ORDINATEUR] playerCanWin")
         return convertToTextCoords(result[0], result[1])
     
     # If the Player can fork
     result = playerCanFork(grid, opponent)
     if result != (-1, -1):
+        print("[ORDINATEUR] playerCanFork")
         return convertToTextCoords(result[0], result[1])
 
     # If the Ai can fork
     result = playerCanFork(grid, turn)
     if result != (-1, -1):
+        print("[ORDINATEUR] aiCanFork")  
         return convertToTextCoords(result[0], result[1])
     
+    print("[ORDINATEUR] random")
+
     freeSpace = []
     for x in range(3):
         for y in range(3):
@@ -256,7 +264,9 @@ Custom input to intercept whatever the player types.
 """
 def customInput(txt, autoPlay = False, grid = [], player = 0):
     if autoPlay:
-        return aiInput(grid, player)
+        aiResult = aiInput(grid, player)
+        sleep(.25)
+        return aiResult
     else:
         while True:
             enteredInput = input(txt)
@@ -276,7 +286,7 @@ def round(grid, player, ai):
         clear()
         printGrid(grid)
         print("\nC'est le tour du joueur "+str(player)+"! ("+playerSymbols[player]+")")
-        playerInput = customInput("Entrer des coordonnées (e.g: A2) > ", ai == player, grid, player)
+        playerInput = customInput("Entrer des coordonnées (e.g: A2) > ", ai == player or ai == 3, grid, player)
         coordinates = toCoordinates(playerInput)
 
         if getValue(grid, coordinates[0], coordinates[1]) != 0:

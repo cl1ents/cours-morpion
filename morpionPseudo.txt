@@ -1,11 +1,15 @@
 # DEBUT
 
 # On admet une fonction `clear` qui efface tout le texte affiché
+# On admet une fonction `sleep` qui permet d'attendre (même si elle existe déjà en larp :])
 # On admet une fonction `lower` qui met une chaine de caractere en minuscule
 # On admet une fonction `deepcopy` qui crée une copie d'une liste
 # On admet une fonction `choice` qui choisi un element aléatoire d'une liste
 # On admet une fonction `randint` qui choisi un nombre entier entre `a` et `b`
 # On admet une fonction `checkInt` qui permet de verifier si une chaine de caractere peut être un nombre entier
+
+# On admet que True signifie une assertion vraie
+# On admet que False signifie une assertion fausse
 
 # On admet une fonction `input` avec un argument `Text`:
     # Afficher la valeur de `Text`
@@ -169,24 +173,31 @@
 
     # Mettre `result` en tant que la valeur renvoyée par `firstTurns` prenant pour argument `grid` et `turn`
     # Si result n'est pas égal a une liste avec comme elements -1 et -1,
+        # Afficher "[ORDINATEUR] firstTurn"
         # Alors renvoyer la chaine de caractere renvoyée par la fonction `convertToTextCoords` prenant pour argument l'élément 1 et l'élement 2 de `result`
     
     # Mettre `result` en tant que la valeur renvoyée par `playerCanWin` prenant pour argument `grid` et `turn`
     # Si result n'est pas égal a une liste avec comme elements -1 et -1,
+        # Afficher "[ORDINATEUR] aiCanWin"
         # Alors renvoyer la chaine de caractere renvoyée par la fonction `convertToTextCoords` prenant pour argument l'élément 1 et l'élement 2 de `result`
     
     # Mettre `result` en tant que la valeur renvoyée par `playerCanWin` prenant pour argument `grid` et `opponent`
     # Si result n'est pas égal a une liste avec comme elements -1 et -1,
+        # Afficher "[ORDINATEUR] playerCanWin"
         # Alors renvoyer la chaine de caractere renvoyée par la fonction `convertToTextCoords` prenant pour argument l'élément 1 et l'élement 2 de `result`
     
     # Mettre `result` en tant que la valeur renvoyée par `playerCanFork` prenant pour argument `grid` et `opponent`
     # Si result n'est pas égal a une liste avec comme elements -1 et -1,
+        # Afficher "[ORDINATEUR] playerCanFork"
         # Alors renvoyer la chaine de caractere renvoyée par la fonction `convertToTextCoords` prenant pour argument l'élément 1 et l'élement 2 de `result`
     
     # Mettre `result` en tant que la valeur renvoyée par `playerCanFork` prenant pour argument `grid` et `turn`
     # Si result n'est pas égal a une liste avec comme elements -1 et -1,
+        # Afficher "[ORDINATEUR] aiCanFork"
         # Alors renvoyer la chaine de caractere renvoyée par la fonction `convertToTextCoords` prenant pour argument l'élément 1 et l'élement 2 de `result`
     
+    # Afficher "[ORDINATEUR] random"
+
     # Initialiser une liste vite `freeSpace`
     # Pour `x` prenant toutes les valeurs entre 0 et 2
         # Pour `y` prenant toutes les valeurs entre 0 et 2
@@ -199,7 +210,9 @@
 
 # Definir une fonction `customInput` qui prend pour argument une chaine de caractere `txt`, et d'autres arguments optionnels tel un boolean `autoPlay`, une liste `grid` et un entier `player`:
     # Si autoPlay est égal a True,
-        # Alors renvoyer la chaine de caractere renvoyée par `aiInput` prenant pour argument `grid` et `player`
+        # Initaliser `aiResult` en tant que la chaine de caractere renvoyée par `aiInput` prenant pour argument `grid` et `player`
+        # Attendre 0.3 secondes
+        # Alors renvoyer `aiResult`
     # Sinon,
         # Tant que True:
             # Definir `enteredInput` en tant que la valeur renvoyée par `input` avec l'argument `txt`
@@ -215,7 +228,7 @@
         # Alors appeler la fonction `clear`
         # Appeler la fonction `printGrid` avec comme argument `grid`
         # Afficher la concatenation de "\nC'est le tour du joueur ", `player` en tant que chaine de caractere, "! (", l'élement d'index `player` de playerSymbols et ")"
-        # Definir une variable `playerInput` en tant que la chaine de caractere renvoyée par `customInput` prenant pour arguments "Entrer des coordonnées (e.g: A2) > ", l'assertion (`ai` === `player`), `grid` et `player`
+        # Definir une variable `playerInput` en tant que la chaine de caractere renvoyée par `customInput` prenant pour arguments "Entrer des coordonnées (e.g: A2) > ", l'assertion (`ai` === `player` || `ai` == 3), `grid` et `player`
         # Definir une variable `coordinates` en tant que la liste renvoyée par `toCoordinates` prenant pour argument `customInput`
 
         # Si la valeur renvoyée par `getValue` avec comme arguments `grid` et l'élement 0 puis 1 de `coordinates` est differente de 0,
