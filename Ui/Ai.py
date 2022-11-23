@@ -171,21 +171,21 @@ def playerCanWin(grid, player):
 """
 Checks whether or not the player can fork (lol)
 """
-def playerCanFork(grid, player):
-    winCounter = 0
+def playerCanFork(grid, player, winCondition):
     tempGrid = copy.deepcopy(grid)
     for i in range(3):
         for j in range(3):
             if tempGrid[i][j] == 0:
                 tempGrid[i][j] = player
+                winCounter = 0
                 for k in range(3):
                     for l in range(3):
                         if tempGrid[k][l] == 0:
                             tempGrid[k][l] = player
                             if isWinner(tempGrid, player):
                                 winCounter += 1
-                            if winCounter >= 2:
-                                return (j, i)
+                            if winCounter >= winCondition:
+                                    return (j, i)
                             tempGrid[k][l] = 0
                 tempGrid[i][j] = 0
     return (-1, -1)
@@ -215,15 +215,21 @@ def ai(grid, turn):
         return (result[0], result[1])
     
     # If the Player can fork
-    result = playerCanFork(grid, opponent)
+    result = playerCanFork(grid, opponent, 2)
     if result != (-1, -1):
         print('playerCanFork')
         return (result[0], result[1])
 
     # If the Ai can fork
-    result = playerCanFork(grid, turn)
+    result = playerCanFork(grid, turn, 2)
     if result != (-1, -1):
         print('aiCanFork')  
+        return (result[0], result[1])
+
+    # If the Ai can line up symbols to win
+    result = playerCanFork(grid, turn, 1)
+    if result != (-1, -1):
+        print('aiLineUp')  
         return (result[0], result[1])
     
     print('random')

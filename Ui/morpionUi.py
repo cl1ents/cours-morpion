@@ -23,6 +23,8 @@ y = (screen_height/2) - (height/2)
 window.geometry('%dx%d+%d+%d' % (width, height, x, y))
 window.minsize(width, height)
 window.maxsize(width, height)
+window.iconbitmap(path.dirname(__file__)+"/img/iconTTT.ico")
+
 
 infoImage = tk.PhotoImage(file=path.dirname(__file__)+"/img/info.png")
 
@@ -36,7 +38,7 @@ class MainMenu:
         gamePage.mainMenu = self
 
         text = ttk.Label(self.frame, 
-            text="\nBienvenue au Morpion!\n☆*: .｡. o(≧▽≦)o .｡.:*☆", 
+            text="\nBienvenue au Morpion!\nO(≧▽≦)O", 
             anchor="center", 
             font=titleFont, 
             justify=tk.CENTER)
