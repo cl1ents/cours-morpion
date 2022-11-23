@@ -8,6 +8,9 @@
 # On admet une fonction `randint` qui choisi un nombre entier entre `a` et `b`
 # On admet une fonction `checkInt` qui permet de verifier si une chaine de caractere peut être un nombre entier
 
+# On admet que True signifie une assertion vraie
+# On admet que False signifie une assertion fausse
+
 # On admet une fonction `input` avec un argument `Text`:
     # Afficher la valeur de `Text`
     # Attendre que l'utilisateur entre une chaine de caractère, puis la renvoyer
