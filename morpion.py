@@ -316,7 +316,7 @@ clear()
 print("""
 Est-ce que vous voulez jouer contre l'ordinateur?
 Si oui, choisissez 1 si vous voulez que l'ordinateur commence, 2 si vous voulez commencer
-Sinon, appuyez simplement sur entrer :]
+Sinon, si vous voulez jouer contre un joueur, appuyez simplement sur entrer :]
 """)
 aiStr = input('> ')
 
@@ -355,7 +355,7 @@ while playing:
             aiStr = ''
             print("""Est-ce que vous voulez jouer contre l'ordinateur?
 Si oui, choisissez 1 si vous voulez que l'ordinateur commence, 2 si vous voulez commencer
-Sinon, appuyez simplement sur entrer :]
+Sinon, si vous voulez jouer contre un joueur, appuyez simplement sur entrer :]
 """)
             aiStr = input('> ')
 
