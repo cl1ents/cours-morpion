@@ -1,3 +1,9 @@
+# IMPORTS
+
+from os import system, name as osname
+from random import choice, randint
+from time import sleep
+
 # VARIABLES
 
 playerSymbols = ".XO"
@@ -26,10 +32,6 @@ _ _ _
 center = (1,1)
 
 # FUNCTIONS
-
-from os import system, name as osname
-from random import choice, randint
-from time import sleep
 
 """
 Checks if string can be converted to an int
@@ -143,7 +145,7 @@ def isWinner(grid, player):
     return False
 
 """
-gets filled cases
+Gets filled cases
 """
 def filled(grid):
     filled = 0
